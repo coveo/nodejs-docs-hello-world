@@ -1,0 +1,37 @@
+{
+    "name": "sample-token-server-azure",
+    "description": "Simple sample that serves Coveo search tokens for a Dynamics portal that can be hosted in Azure",
+    "author": "Coveo",
+    "license": "MIT",
+    "version": "0.0.1",
+    "keywords": [
+        "coveo",
+        "typescript",
+        "xrm",
+        "Dynamics",
+        "Portal"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/coveo/coveo-search-token-generator"
+    },
+    "homepage": "https://github.com/coveo/coveo-search-token-generator",
+    "dependencies": {
+        "express": "^4.16.0",
+        "jsonwebtoken": "^8.3.0",
+        "coveo-search-token-generator": "file:../../lib"
+    },
+    "scripts": {
+        "setup": "npm install",
+        "build": "npm run setup && npm run ts",
+        "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'",
+        "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json"
+    },
+    "devDependencies": {
+        "@types/express": "^4.16.0",
+        "@types/jsonwebtoken": "^8.3.0",
+        "@types/node": "^10.12.7",
+        "tslint": "^5.11.0",
+        "typescript": "^3.1.6"
+    }
+}

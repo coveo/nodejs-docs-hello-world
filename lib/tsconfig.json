@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "module": "commonjs",
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "removeComments": true,
+        "target": "es2018",
+        "sourceMap": true,
+        "preserveWatchOutput": true,
+        "alwaysStrict": true,
+        "outDir": "dist",
+        "experimentalDecorators": true,
+        "baseUrl": ".",
+        "noEmitOnError": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "pretty": true,
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        },
+        "lib": [
+            "dom",
+            "es2018"
+        ],
+        "types": [
+            "node"
+        ],
+    }
+}
