@@ -1,3 +1,3 @@
-# Node.js sample token-server-azure
+# Node.js Express Server Sample
 
-Sample that serves Coveo search tokens for a Dynamics portal and can be hosted in Azure.
+Express server that generates Coveo search tokens for Dynamics portal.
