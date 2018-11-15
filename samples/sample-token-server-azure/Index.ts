@@ -1,3 +1,4 @@
+// Copyright (c) 2005-2018 Coveo Solutions Inc.
 import { CoveoSearchTokenHandler, DynamicsPortalAuthTokenHandler, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
 import * as expServer from "express";
 
@@ -15,8 +16,11 @@ const coveo = new CoveoSearchTokenHandler(config.coveoApiKey, config.coveoPlatfo
 
 const getCoveoToken: expServer.RequestHandler = async (req: expServer.Request, res: expServer.Response): Promise<void> => {
     try {
+        // Decodes the authentication token to extract the payload.
         const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
+        // Gets a search token from Coveo.
         const coveoSearchToken: string = await coveo.getSearchToken(portalAuth.email);
+        // Returns the search token to the client.
         res.status(200).send({ coveoSearchToken });
     } catch (ex) {
         const statusCode: number = ex.statusCode || 500;
@@ -28,6 +32,7 @@ const getCoveoToken: expServer.RequestHandler = async (req: expServer.Request, r
 const port: string | number = process.env.PORT || 5950;
 expServer().
     use((req, res, next) => {
+        // Additional headers.
         res.
             header("Access-Control-Allow-Origin", config.portalUrl).
             header("Access-Control-Allow-Methods", "POST,OPTIONS").

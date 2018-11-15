@@ -1,6 +1,6 @@
 {
     "name": "sample-token-server-azure",
-    "description": "Simple sample that serves Coveo search tokens for a Dynamics portal that can be hosted in Azure",
+    "description": "Sample that serves Coveo search tokens for a Dynamics portal and can be hosted in Azure.",
     "author": "Coveo",
     "license": "MIT",
     "version": "0.0.1",

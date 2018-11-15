@@ -4,7 +4,6 @@ import * as https from "https";
 interface ISearchTokenBodyRequest {
     userIds: {
         name: string;
-        // type: string;
         provider: string;
     }[];
 }
@@ -13,9 +12,15 @@ interface ISearchTokenResponse {
     token: string;
 }
 
+/**
+ * Gets or create a search token.
+ */
 export class CoveoSearchTokenHandler {
     constructor(private readonly _apiKey: string, private readonly _platformUrl: string) { }
 
+    /**
+     * Gets or create a search token for the given user.
+     */
     getSearchToken(userEmail: string): Promise<string> {
         const impersonatedUser: ISearchTokenBodyRequest = {
             userIds: [{

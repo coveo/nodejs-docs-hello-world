@@ -10,6 +10,9 @@ export interface IDecodedPortalAuthTokenPayload {
     readonly email: string;
 }
 
+/**
+ * Decodes a portal authentication token.
+ */
 export class DynamicsPortalAuthTokenHandler {
     private readonly _decoder: AuthTokenDecoder;
     private _lastPublicKey: string;
@@ -26,6 +29,10 @@ export class DynamicsPortalAuthTokenHandler {
         return this._portalRootUrl + separator + publicKeyUrlPath;
     }
 
+    /**
+     * Gets the portal public key and decodes the token.
+     * returns - The decoded token.
+     */
     async decodeAuthToken(authToken: string): Promise<IDecodedPortalAuthTokenPayload> {
         const publicKey: string = await this._getPublicKey();
         try {
