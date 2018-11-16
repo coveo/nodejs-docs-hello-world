@@ -20,11 +20,13 @@ export class CoveoSearchTokenHandler {
 
     /**
      * Gets or create a search token for the given user.
+     * If no e-mail is provided, the token returned will
+     * correspond to the anonymous profile.
      */
-    getSearchToken(userEmail: string): Promise<string> {
+    getSearchToken(userEmail?: string): Promise<string> {
         const impersonatedUser: ISearchTokenBodyRequest = {
             userIds: [{
-                name: userEmail,
+                name: userEmail || "anonymous@coveo.com",
                 provider: "Email Security Provider"
             }]
         };

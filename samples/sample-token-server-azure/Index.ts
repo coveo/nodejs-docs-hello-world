@@ -16,10 +16,14 @@ const coveo = new CoveoSearchTokenHandler(config.coveoApiKey, config.coveoPlatfo
 
 const getCoveoToken: expServer.RequestHandler = async (req: expServer.Request, res: expServer.Response): Promise<void> => {
     try {
-        // Decodes the authentication token from portal to extract the payload.
-        const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
+        let userEmail: string;
+        if (req.headers.authorization) {
+            // Decodes the authentication token from portal to extract the payload related to the authenticated user.
+            const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
+            userEmail = portalAuth.email
+        }
         // Gets a search token from Coveo for the user specified in the token.
-        const coveoSearchToken: string = await coveo.getSearchToken(portalAuth.email);
+        const coveoSearchToken: string = await coveo.getSearchToken(userEmail);
         // Returns the search token to the client.
         res.status(200).send({ coveoSearchToken });
     } catch (ex) {
