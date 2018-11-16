@@ -9,3 +9,9 @@ const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(
 // Gets a search token from Coveo for the user specified in the token.
 const coveoSearchToken: string = await coveo.getSearchToken(portalAuth.email);
 ```
+
+## Build
+
+To build this lib, open npm on the directory of this file. Then, run the following command :
+
+`npm run setup && npm run build`

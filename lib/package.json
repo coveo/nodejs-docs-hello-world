@@ -1,0 +1,37 @@
+{
+    "name": "coveo-search-token-generator",
+    "description": "Serves Coveo search tokens for Dynamics portal.",
+    "author": "Coveo",
+    "license": "MIT",
+    "version": "0.0.1",
+    "keywords": [
+        "coveo",
+        "typescript",
+        "Dynamics",
+        "Portal"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/coveo/coveo-search-token-generator"
+    },
+    "homepage": "https://github.com/coveo/coveo-search-token-generator",
+    "main": "dist/Index.js",
+    "types": "dist/Index.d.ts",
+    "dependencies": {
+        "jsonwebtoken": "^8.3.0",
+        "@types/jsonwebtoken": "^8.3.0",
+        "@types/node": "^10.12.7"
+    },
+    "scripts": {
+        "setup": "npm install",
+        "build": "npm run clean && npm run ts",
+        "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json",
+        "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'",
+        "clean": "rm -rf dist",
+        "publish": "npm run setup && npm run build && npm publish --access=public"
+    },
+    "devDependencies": {
+        "tslint": "^5.11.0",
+        "typescript": "^3.1.6"
+    }
+}

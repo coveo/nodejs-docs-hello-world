@@ -1,3 +1,10 @@
+bin
+node_modules
+npm-debug.log
+*.js
+*.js.map
+*.d.ts
+
 # Logs
 logs
 *.log

@@ -1,0 +1,11 @@
+{
+    "tslint.enable": true,
+    "tslint.configFile": "./tslint.json",
+    "tslint.autoFixOnSave": true,
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "tsimporter.doubleQuotes": true,
+    "files.exclude": {
+        "dist/": true,
+        "node_modules/": true
+    }
+}
