@@ -1,6 +1,6 @@
 import { ClientRequest, IncomingMessage } from "http";
 import * as https from "https";
-import { AuthTokenDecoder } from "./AuthTokenDecoder";
+import * as jwt from "jsonwebtoken";
 
 const publicKeyUrlPath = "_services/auth/publickey";
 
@@ -14,14 +14,12 @@ export interface IDecodedPortalAuthTokenPayload {
  * Decodes a portal authentication token.
  */
 export class DynamicsPortalAuthTokenHandler {
-    private readonly _decoder: AuthTokenDecoder;
     private _lastPublicKey: string;
 
     constructor(private readonly _portalRootUrl: string) {
         if (!_portalRootUrl) {
             throw Error("The portal URL is required.");
         }
-        this._decoder = new AuthTokenDecoder();
     }
 
     private get _publicKeyUrl() {
@@ -36,12 +34,15 @@ export class DynamicsPortalAuthTokenHandler {
     async decodeAuthToken(authToken: string): Promise<IDecodedPortalAuthTokenPayload> {
         const publicKey: string = await this._getPublicKey();
         try {
-            return this._decoder.decode(authToken, publicKey) as IDecodedPortalAuthTokenPayload;
+            return jwt.verify(authToken, publicKey) as IDecodedPortalAuthTokenPayload;
         } catch (ex) {
             ex.statusCode = 401;
-            this._clearState();
             throw ex;
         }
+    }
+
+    public clearCache(): void {
+        this._lastPublicKey = undefined;
     }
 
     private _getPublicKey(): Promise<string> {
@@ -78,9 +79,5 @@ export class DynamicsPortalAuthTokenHandler {
             });
             req.end();
         });
-    }
-
-    private _clearState(): void {
-        this._lastPublicKey = undefined;
     }
 }

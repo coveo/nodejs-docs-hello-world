@@ -26,7 +26,7 @@ export class CoveoSearchTokenHandler {
     getSearchToken(userEmail?: string): Promise<string> {
         const impersonatedUser: ISearchTokenBodyRequest = {
             userIds: [{
-                name: userEmail || "anonymous@coveo.com",
+                name: userEmail || "anonymous@anonymous",
                 provider: "Email Security Provider"
             }]
         };

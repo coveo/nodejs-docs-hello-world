@@ -7,7 +7,6 @@
     "keywords": [
         "coveo",
         "typescript",
-        "xrm",
         "Dynamics",
         "Portal"
     ],
@@ -25,9 +24,10 @@
     },
     "scripts": {
         "setup": "npm install",
-        "build": "rm -rf dist && npm run ts",
+        "build": "npm run clean && npm run ts",
         "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json",
         "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'",
+        "clean": "rm -rf dist",
         "publish": "npm run setup && npm run build && npm publish --access=public"
     },
     "devDependencies": {

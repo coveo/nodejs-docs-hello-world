@@ -1,6 +1,6 @@
 // Copyright (c) 2005-2018 Coveo Solutions Inc.
 import { CoveoSearchTokenHandler, DynamicsPortalAuthTokenHandler, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
-import * as expServer from "express";
+import * as express from "express";
 
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
@@ -14,16 +14,18 @@ const config = {
 const portal = new DynamicsPortalAuthTokenHandler(config.portalUrl);
 const coveo = new CoveoSearchTokenHandler(config.coveoApiKey, config.coveoPlatformUrl);
 
-const getCoveoToken: expServer.RequestHandler = async (req: expServer.Request, res: expServer.Response): Promise<void> => {
+const getCoveoToken: express.RequestHandler = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         let userEmail: string;
         if (req.headers.authorization) {
             // Decodes the authentication token from portal to extract the payload related to the authenticated user.
             const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
-            userEmail = portalAuth.email
+            userEmail = portalAuth.email;
         }
+
         // Gets a search token from Coveo for the user specified in the token.
         const coveoSearchToken: string = await coveo.getSearchToken(userEmail);
+
         // Returns the search token to the client.
         res.status(200).send({ coveoSearchToken });
     } catch (ex) {
@@ -34,7 +36,7 @@ const getCoveoToken: expServer.RequestHandler = async (req: expServer.Request, r
 };
 
 const port: string | number = process.env.PORT || 5950;
-expServer().
+express().
     use((req, res, next) => {
         // Additional headers.
         res.
@@ -43,7 +45,8 @@ expServer().
             header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
         next();
     }).
-    options("/*", (req: expServer.Request, res: expServer.Response) => res.send(200)).
+    options("/*", (req: express.Request, res: express.Response) => res.send(200)).
+    get("/", (req, res) => res.status(200).send("Server is up and running.")).
     post("/token", getCoveoToken).
     use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 })).
-    listen(port, () => console.log(`Echo Listening on port ${port}`));
+    listen(port, () => console.log(`Echo Listening on port ${port}.`));
