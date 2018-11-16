@@ -46,4 +46,4 @@ expServer().
     options("/*", (req: expServer.Request, res: expServer.Response) => res.send(200)).
     post("/token", getCoveoToken).
     use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 })).
-    listen(process.env.PORT || 5950, () => console.log(`Echo Listening on port ${port}`));
+    listen(port, () => console.log(`Echo Listening on port ${port}`));

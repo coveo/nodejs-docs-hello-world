@@ -23,8 +23,8 @@
     "scripts": {
         "setup": "npm install",
         "build": "npm run ts",
-        "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'",
-        "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json"
+        "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json",
+        "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'"
     },
     "devDependencies": {
         "@types/express": "^4.16.0",
