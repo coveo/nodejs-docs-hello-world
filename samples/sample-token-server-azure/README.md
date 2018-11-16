@@ -16,8 +16,8 @@ const config = {
 
 ## Build
 
-First, you need to build `coveo-search-token-generator` (see [README](../../lib/README.md)).
-
 To build this sample, open npm on the directory of this file. Then, run the following command :
-
-`npm run setup && npm run build`
+```
+npm run setup
+npm run build
+```
