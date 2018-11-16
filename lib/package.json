@@ -23,7 +23,7 @@
         "@types/node": "^10.12.7"
     },
     "scripts": {
-        "setup": "npm run clean && npm install",
+        "setup": "npm install",
         "build": "npm run clean && npm run ts",
         "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json",
         "lint": "node node_modules/tslint/bin/tslint -c tslint.json 'src/**/*.ts'",
