@@ -17,7 +17,7 @@
     "homepage": "https://github.com/coveo/coveo-search-token-generator",
     "dependencies": {
         "express": "^4.16.0",
-        "coveo-search-token-generator": "file:../../lib"
+        "coveo-search-token-generator": "0.0.1"
     },
     "scripts": {
         "setup": "npm install",
