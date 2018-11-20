@@ -10,6 +10,12 @@ const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(
 const coveoSearchToken: string = await coveo.getSearchToken(portalAuth.email);
 ```
 
+## Install
+
+```
+npm install coveo-search-token-generator
+```
+
 ## Build
 
 To build this lib, open npm on the directory of this file. Then, run the following command :
