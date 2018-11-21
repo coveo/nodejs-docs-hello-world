@@ -6,7 +6,7 @@ Express server that generates Coveo search tokens for Dynamics portal.
 
 Before running the sample, open `Index.ts` and change this configuration accordingly to represent your environment.
 
-```json
+```javascript
 const config = {
     portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com/
     coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
