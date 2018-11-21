@@ -5,8 +5,8 @@ import * as express from "express";
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
 const config = {
-    portalUrl: "<your_portal_url>", // example: https://yourportalurl.microsoftcrmportals.com/
-    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privileges "Execute query" and "Impersonate" enabled.
+    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com/
+    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
     coveoPlatformUrl: "platform.cloud.coveo.com" // The URL of the Coveo Cloud V2 platform.
 };
 // -----------------------------------------------------------------------------
@@ -49,4 +49,4 @@ express().
     get("/", (req, res) => res.status(200).send("Server is up and running.")).
     post("/token", getCoveoToken).
     use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 })).
-    listen(port, () => console.log(`Echo Listening on port ${port}.`));
+    listen(port, () => console.info(`Token server listening on port ${port}.`));
