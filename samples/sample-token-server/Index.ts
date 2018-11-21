@@ -1,5 +1,5 @@
 // Copyright (c) 2005-2018 Coveo Solutions Inc.
-import { CoveoSearchTokenHandler, DynamicsPortalAuthTokenHandler, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
+import { CoveoSearchTokenGenerator, DynamicsPortalAuthTokenDecoder, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
 import * as express from "express";
 
 // -----------------------------------------------------------------------------
@@ -11,8 +11,8 @@ const config = {
 };
 // -----------------------------------------------------------------------------
 
-const portal = new DynamicsPortalAuthTokenHandler(config.portalUrl);
-const coveo = new CoveoSearchTokenHandler(config.coveoApiKey, config.coveoPlatformUrl);
+const portal = new DynamicsPortalAuthTokenDecoder(config.portalUrl);
+const coveo = new CoveoSearchTokenGenerator(config.coveoApiKey, config.coveoPlatformUrl);
 
 const getCoveoToken: express.RequestHandler = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
@@ -24,7 +24,7 @@ const getCoveoToken: express.RequestHandler = async (req: express.Request, res: 
         }
 
         // Gets a search token from Coveo for the user specified in the token.
-        const coveoSearchToken: string = await coveo.getSearchToken(userEmail);
+        const coveoSearchToken: string = await coveo.fetchSearchToken(userEmail);
 
         // Returns the search token to the client.
         res.status(200).send({ coveoSearchToken });

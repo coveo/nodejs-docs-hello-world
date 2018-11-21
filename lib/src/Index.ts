@@ -1,2 +1,2 @@
-export { DynamicsPortalAuthTokenHandler, IDecodedPortalAuthTokenPayload } from "./DynamicsPortalAuthTokenHandler";
-export { CoveoSearchTokenHandler } from "./CoveoSearchTokenHandler";
+export { DynamicsPortalAuthTokenDecoder, IDecodedPortalAuthTokenPayload } from "./DynamicsPortalAuthTokenDecoder";
+export { CoveoSearchTokenGenerator } from "./CoveoSearchTokenGenerator";
