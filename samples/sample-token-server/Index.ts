@@ -5,7 +5,7 @@ import * as express from "express";
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
 const config = {
-    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com/
+    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com (without slash at the end)
     coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
     coveoPlatformUrl: "platform.cloud.coveo.com" // The URL of the Coveo Cloud V2 platform.
 };
