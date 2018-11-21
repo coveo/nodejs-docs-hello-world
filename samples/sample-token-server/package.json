@@ -1,5 +1,5 @@
 {
-    "name": "sample-token-server-azure",
+    "name": "sample-token-server",
     "description": "Express server that generates Coveo search tokens for Dynamics portal.",
     "author": "Coveo",
     "license": "MIT",
