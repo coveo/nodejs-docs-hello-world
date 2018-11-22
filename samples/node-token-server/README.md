@@ -1,6 +1,6 @@
-# Node.js Express Server Sample
+# Node.js Token Server Sample
 
-Express server that generates Coveo search tokens for a Dynamics portal.
+Server application that generates Coveo search tokens for a Dynamics portal.
 
 ## Configuration
 

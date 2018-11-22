@@ -1,6 +1,6 @@
 {
     "name": "sample-token-server",
-    "description": "Express server that generates Coveo search tokens for a Dynamics portal.",
+    "description": "Server application that generates Coveo search tokens for a Dynamics portal.",
     "author": "Coveo",
     "license": "MIT",
     "private": true,
