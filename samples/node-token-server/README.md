@@ -1,15 +1,15 @@
-# Node.js Express Server Sample
+# Node.js Token Server Sample
 
-Express server that generates Coveo search tokens for Dynamics portal.
+Server application that generates Coveo search tokens for a Dynamics portal.
 
 ## Configuration
 
 Before running the sample, open `Index.ts` and change this configuration accordingly to represent your environment.
 
-``` javascript
+```javascript
 const config = {
-    portalUrl: "<your_portal_url>", // example: https://yourportalurl.microsoftcrmportals.com/
-    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privileges "Execute query" and "Impersonate" enabled.
+    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com (without slash at the end)
+    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
     coveoPlatformUrl: "platform.cloud.coveo.com" // The URL of the Coveo Cloud V2 platform.
 };
 ```
@@ -17,7 +17,8 @@ const config = {
 ## Build
 
 To build this sample, open npm on the directory of this file. Then, run the following command :
-```
+
+```bash
 npm run setup
 npm run build
 ```

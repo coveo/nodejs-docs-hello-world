@@ -1,9 +1,9 @@
 {
-    "name": "sample-token-server-azure",
-    "description": "Express server that generates Coveo search tokens for Dynamics portal.",
+    "name": "sample-token-server",
+    "description": "Server application that generates Coveo search tokens for a Dynamics portal.",
     "author": "Coveo",
     "license": "MIT",
-    "version": "0.0.1",
+    "private": true,
     "keywords": [
         "coveo",
         "typescript",
@@ -17,7 +17,7 @@
     "homepage": "https://github.com/coveo/coveo-search-token-generator",
     "dependencies": {
         "express": "^4.16.0",
-        "coveo-search-token-generator": "0.0.1"
+        "coveo-search-token-generator": "0.0.2"
     },
     "scripts": {
         "setup": "npm install",
@@ -27,7 +27,7 @@
     },
     "devDependencies": {
         "@types/express": "^4.16.0",
-        "@types/node": "^10.12.7",
+        "@types/node": "^10.12.9",
         "tslint": "^5.11.0",
         "typescript": "^3.1.6"
     }

@@ -1,25 +1,26 @@
 # Coveo Search Token Generator
 
-Node.js module that serves Coveo search tokens for Dynamics portal.
+Node.js module that generates Coveo search tokens for a Dynamics portal.
 
-``` javascript
-// Decodes the authentication token from portal to extract the payload related to the authenticated user.
+```javascript
+// Decodes the authentication token from your portal to extract the payload related to the authenticated user.
 const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
 
-// Gets a search token from Coveo for the user specified in the token.
-const coveoSearchToken: string = await coveo.getSearchToken(portalAuth.email);
+// Fetches a search token from Coveo for the user passed as argument.
+const coveoSearchToken: string = await coveo.fetchSearchToken(portalAuth.email);
 ```
 
 ## Install
 
-```
+```bash
 npm install coveo-search-token-generator
 ```
 
 ## Build
 
 To build this lib, open npm on the directory of this file. Then, run the following command :
-```
+
+```bash
 npm run setup
 npm run build
 ```

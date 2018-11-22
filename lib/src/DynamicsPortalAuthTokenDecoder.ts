@@ -11,9 +11,9 @@ export interface IDecodedPortalAuthTokenPayload {
 }
 
 /**
- * Decodes a portal authentication token.
+ * Decodes an authentication token from a portal.
  */
-export class DynamicsPortalAuthTokenHandler {
+export class DynamicsPortalAuthTokenDecoder {
     private _lastPublicKey: string;
 
     constructor(private readonly _portalRootUrl: string) {
@@ -64,7 +64,7 @@ export class DynamicsPortalAuthTokenHandler {
         return new Promise<string>((resolve, reject) => {
             const req: ClientRequest = https.get(this._publicKeyUrl, (res: IncomingMessage) => {
                 let data: string = "";
-                res.on("data", (chunk) => {
+                res.on("data", (chunk: string) => {
                     data += chunk;
                 });
 

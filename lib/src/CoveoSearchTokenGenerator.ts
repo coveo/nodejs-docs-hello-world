@@ -13,17 +13,17 @@ interface ISearchTokenResponse {
 }
 
 /**
- * Gets or create a search token.
+ * Generates search tokens to query Coveo.
  */
-export class CoveoSearchTokenHandler {
+export class CoveoSearchTokenGenerator {
     constructor(private readonly _apiKey: string, private readonly _platformUrl: string) { }
 
     /**
-     * Gets or create a search token for the given user.
+     * Fetches a search token for the given user.
      * If no e-mail is provided, the token returned will
      * correspond to the anonymous profile.
      */
-    getSearchToken(userEmail?: string): Promise<string> {
+    fetchSearchToken(userEmail?: string): Promise<string> {
         const impersonatedUser: ISearchTokenBodyRequest = {
             userIds: [{
                 name: userEmail || "anonymous@anonymous",
@@ -53,7 +53,7 @@ export class CoveoSearchTokenHandler {
                 res.setEncoding("utf-8");
 
                 let data: string = "";
-                res.on("data", (chunk) => {
+                res.on("data", (chunk: string) => {
                     data += chunk;
                 });
 

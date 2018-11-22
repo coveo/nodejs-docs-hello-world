@@ -1,30 +1,32 @@
 // Copyright (c) 2005-2018 Coveo Solutions Inc.
-import { CoveoSearchTokenHandler, DynamicsPortalAuthTokenHandler, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
+import { CoveoSearchTokenGenerator, DynamicsPortalAuthTokenDecoder, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
 import * as express from "express";
 
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
 const config = {
-    portalUrl: "<your_portal_url>", // example: https://yourportalurl.microsoftcrmportals.com/
-    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privileges "Execute query" and "Impersonate" enabled.
-    coveoPlatformUrl: "platform.cloud.coveo.com" // The URL of the Coveo Cloud V2 platform.
+    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com
+    coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
+    coveoPlatformUrl: "platform.cloud.coveo.com" // The Coveo Cloud URL.
 };
 // -----------------------------------------------------------------------------
 
-const portal = new DynamicsPortalAuthTokenHandler(config.portalUrl);
-const coveo = new CoveoSearchTokenHandler(config.coveoApiKey, config.coveoPlatformUrl);
+config.portalUrl = config.portalUrl.trim().replace(/\/$/, ""); // Removes from the address an eventual trailing slash.
+
+const portal = new DynamicsPortalAuthTokenDecoder(config.portalUrl);
+const coveo = new CoveoSearchTokenGenerator(config.coveoApiKey, config.coveoPlatformUrl);
 
 const getCoveoToken: express.RequestHandler = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         let userEmail: string;
         if (req.headers.authorization) {
-            // Decodes the authentication token from portal to extract the payload related to the authenticated user.
+            // Decodes the authentication token from your portal to extract the payload related to the authenticated user.
             const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
             userEmail = portalAuth.email;
         }
 
-        // Gets a search token from Coveo for the user specified in the token.
-        const coveoSearchToken: string = await coveo.getSearchToken(userEmail);
+        // Fetches a search token from Coveo for the user passed as argument.
+        const coveoSearchToken: string = await coveo.fetchSearchToken(userEmail);
 
         // Returns the search token to the client.
         res.status(200).send({ coveoSearchToken });
@@ -49,4 +51,4 @@ express().
     get("/", (req, res) => res.status(200).send("Server is up and running.")).
     post("/token", getCoveoToken).
     use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 })).
-    listen(port, () => console.log(`Echo Listening on port ${port}.`));
+    listen(port, () => console.info(`Token server listening on port ${port}.`));
