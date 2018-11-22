@@ -3,7 +3,7 @@
     "description": "Generates Coveo search tokens for a Dynamics portal.",
     "author": "Coveo",
     "license": "MIT",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "keywords": [
         "coveo",
         "typescript",
