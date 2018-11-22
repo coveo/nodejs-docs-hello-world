@@ -14,13 +14,12 @@ const config = {
 };
 ```
 
-## Build
+## Running the Sample
 
-To build this sample, open npm on the directory of this file. Then, run the following command :
+To run this sample, open npm on the directory of this file and run the following command:
 
 ```bash
-npm run setup
-npm run build
+npm run start
 ```
 
 ## Liability
