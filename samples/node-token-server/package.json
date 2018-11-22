@@ -20,6 +20,7 @@
         "express": "^4.16.0"
     },
     "scripts": {
+        "start": "npm run setup && npm run build && node dist/Index.js",
         "setup": "npm install",
         "build": "npm run ts",
         "ts": "npm run lint && node ./node_modules/typescript/bin/tsc --project tsconfig.json",

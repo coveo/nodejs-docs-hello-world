@@ -1,6 +1,7 @@
 // Copyright (c) 2005-2018 Coveo Solutions Inc.
 import { CoveoSearchTokenGenerator, DynamicsPortalAuthTokenDecoder, IDecodedPortalAuthTokenPayload } from "coveo-search-token-generator";
 import * as express from "express";
+import * as http from "http";
 
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
@@ -38,17 +39,26 @@ const getCoveoToken: express.RequestHandler = async (req: express.Request, res: 
 };
 
 const port: string | number = process.env.PORT || 5950;
-express().
-    use((req, res, next) => {
-        // Additional headers.
-        res.
-            header("Access-Control-Allow-Origin", config.portalUrl).
-            header("Access-Control-Allow-Methods", "POST,OPTIONS").
-            header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
-        next();
-    }).
-    options("/*", (req: express.Request, res: express.Response) => res.send(200)).
-    get("/", (req, res) => res.status(200).send("Server is up and running.")).
-    post("/token", getCoveoToken).
-    use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 })).
-    listen(port, () => console.info(`Token server listening on port ${port}.`));
+const server: http.Server =
+    express()
+        .use((req, res, next) => {
+            // Additional headers.
+            res
+                .header("Access-Control-Allow-Origin", config.portalUrl)
+                .header("Access-Control-Allow-Methods", "POST,OPTIONS")
+                .header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
+            next();
+        })
+        .options("/*", (req: express.Request, res: express.Response) => res.send(200))
+        .get("/", (req, res) => res.status(200).send("Token server is up and running."))
+        .post("/token", getCoveoToken)
+        .use((req, res) => res.status(400).send({ error: "This request did not match any endpoint.", status: 400 }))
+        .listen(port, () => console.info(`####### Token server listening on port ${port}. #######`)).
+        on("error", (error: any) => console.error(error.errno === "EADDRINUSE" ? `Server cannot start. There is already a process listening on port ${port}.` : error));
+
+const stop = () => server.close(() => console.info(`Token server is stopped.`));
+process
+    .on("exit", stop) // Application controlled exit event.
+    .on("SIGINT", stop) // Ctrl+C event.
+    .on("SIGUSR1", stop)  // PID Killed events
+    .on("SIGUSR2", stop);
