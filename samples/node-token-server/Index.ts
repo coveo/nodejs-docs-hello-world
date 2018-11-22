@@ -11,7 +11,7 @@ const config = {
 };
 // -----------------------------------------------------------------------------
 
-config.portalUrl = config.portalUrl.replace(/\/$/, ""); // Remove from the address an eventual trailing slash.
+config.portalUrl = config.portalUrl.trim().replace(/\/$/, ""); // Removes from the address an eventual trailing slash.
 
 const portal = new DynamicsPortalAuthTokenDecoder(config.portalUrl);
 const coveo = new CoveoSearchTokenGenerator(config.coveoApiKey, config.coveoPlatformUrl);
