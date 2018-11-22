@@ -11,7 +11,7 @@ export interface IDecodedPortalAuthTokenPayload {
 }
 
 /**
- * Decodes a portal authentication token.
+ * Decodes an authentication token from a portal.
  */
 export class DynamicsPortalAuthTokenDecoder {
     private _lastPublicKey: string;

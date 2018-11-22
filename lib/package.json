@@ -1,6 +1,6 @@
 {
     "name": "coveo-search-token-generator",
-    "description": "Serves Coveo search tokens for Dynamics portal.",
+    "description": "Generates Coveo search tokens for a Dynamics portal.",
     "author": "Coveo",
     "license": "MIT",
     "version": "0.0.2",

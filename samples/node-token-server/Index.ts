@@ -5,11 +5,13 @@ import * as express from "express";
 // -----------------------------------------------------------------------------
 // Change this configuration accordingly to represent your environment.
 const config = {
-    portalUrl: "<your_portal_url>", // Example: https://yourportalurl.microsoftcrmportals.com (without slash at the end)
+    portalUrl: "https://yourportalurl.microsoftcrmportals.com/", // Example: https://yourportalurl.microsoftcrmportals.com
     coveoApiKey: "<your_API_key>", // The API key used to query Coveo and create a search token. It must have at least the privilege "Impersonate" enabled.
-    coveoPlatformUrl: "platform.cloud.coveo.com" // The URL of the Coveo Cloud V2 platform.
+    coveoPlatformUrl: "platform.cloud.coveo.com" // The Coveo Cloud URL.
 };
 // -----------------------------------------------------------------------------
+
+config.portalUrl = config.portalUrl.replace(/\/$/, ""); // Remove from the address an eventual trailing slash.
 
 const portal = new DynamicsPortalAuthTokenDecoder(config.portalUrl);
 const coveo = new CoveoSearchTokenGenerator(config.coveoApiKey, config.coveoPlatformUrl);
@@ -18,12 +20,12 @@ const getCoveoToken: express.RequestHandler = async (req: express.Request, res: 
     try {
         let userEmail: string;
         if (req.headers.authorization) {
-            // Decodes the authentication token from portal to extract the payload related to the authenticated user.
+            // Decodes the authentication token from your portal to extract the payload related to the authenticated user.
             const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
             userEmail = portalAuth.email;
         }
 
-        // Gets a search token from Coveo for the user specified in the token.
+        // Fetches a search token from Coveo for the user passed as argument.
         const coveoSearchToken: string = await coveo.fetchSearchToken(userEmail);
 
         // Returns the search token to the client.
