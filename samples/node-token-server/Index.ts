@@ -20,13 +20,15 @@ const coveo = new CoveoSearchTokenGenerator(config.coveoApiKey, config.coveoPlat
 const getCoveoToken: express.RequestHandler = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         let userEmail: string;
+        // Checks in the request object for the existence of an optional authentication token from the portal.
+        // A token should be present only if the user is authenticated on your portal. If a token is not present, the user will be considered anonymous.
         if (req.headers.authorization) {
-            // Decodes the authentication token from your portal to extract the payload related to the authenticated user.
+            // Decodes the authentication token from the portal and extracts from it the e-mail address of the current user (i.e. the one that made the call).
             const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
             userEmail = portalAuth.email;
         }
 
-        // Fetches a search token from Coveo for the user passed as argument.
+        // Fetches a search token from Coveo Cloud providing the current user e-mail (or empty for anonymous users), which then returns the search token.
         const coveoSearchToken: string = await coveo.fetchSearchToken(userEmail);
 
         // Returns the search token to the client.

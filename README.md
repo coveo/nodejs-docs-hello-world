@@ -3,10 +3,10 @@
 Node.js module that serves Coveo search tokens for a Dynamics portal.
 
 ```javascript
-// Decodes the authentication token from your portal to extract the payload related to the authenticated user.
+// Decodes the authentication token from the portal and extracts from it the e-mail address of the current user (i.e. the one that made the call).
 const portalAuth: IDecodedPortalAuthTokenPayload = await portal.decodeAuthToken(req.headers.authorization);
 
-// Fetches a search token from Coveo for the user passed as argument.
+// Fetches a search token from Coveo Cloud providing the current user e-mail (or empty for anonymous users), which then returns the search token.
 const coveoSearchToken: string = await coveo.fetchSearchToken(portalAuth.email);
 ```
 
