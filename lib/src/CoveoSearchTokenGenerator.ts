@@ -13,7 +13,7 @@ interface ISearchTokenResponse {
 }
 
 /**
- * Generates search tokens to query Coveo.
+ * Generates search tokens to query Coveo Cloud.
  */
 export class CoveoSearchTokenGenerator {
     constructor(private readonly _apiKey: string, private readonly _platformUrl: string) { }
