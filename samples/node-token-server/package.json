@@ -16,7 +16,7 @@
     },
     "homepage": "https://github.com/coveo/coveo-search-token-generator",
     "dependencies": {
-        "coveo-search-token-generator": "0.0.3",
+        "coveo-search-token-generator": "0.0.4",
         "express": "^4.16.0"
     },
     "scripts": {
