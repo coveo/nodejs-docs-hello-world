@@ -18,7 +18,7 @@
     "main": "dist/Index.js",
     "types": "dist/Index.d.ts",
     "dependencies": {
-        "jsonwebtoken": "^8.3.0"
+        "jsonwebtoken": "^9.0.0"
     },
     "scripts": {
         "setup": "npm install",
